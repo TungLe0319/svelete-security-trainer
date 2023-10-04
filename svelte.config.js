@@ -10,7 +10,14 @@ const config = {
     adapter: adapter(),
   },
 
-  preprocess: [vitePreprocess({})],
+  preprocess: [
+    vitePreprocess({
+      // Add SCSS preprocessing to the Vite preprocessor
+      style: ({ content }) => {
+        return require("sass").renderSync({ data: content }).css.toString();
+      },
+    }),
+  ],
 };
 
 export default config;
